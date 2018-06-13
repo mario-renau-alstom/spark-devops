@@ -7,6 +7,19 @@ import org.apache.spark.sql.SparkSession
 /* Statistiques sur la taille des requêtes */
 case class SparkSQL5(rdd: RDD[String] , sparkSession: SparkSession) {
 
-  def process: (Long, Long, Double, Long) = ???
+  def process: (Long, Long, Double, Long) = {
+
+    import sparkSession.implicits._
+    val df = sparkSession.createDataFrame(rdd.map(ApacheAccessLog.parse))
+
+    df.selectExpr("count(*)", "min(size)", "avg(size)", "max(size)")
+      .map(r=> (r.getLong(0),r.getLong(1), r.getDouble(2), r.getLong(3)))
+      .first()
+
+    df.createTempView("log")
+    sparkSession.sql("select count(*), min(size), avg(size), max(size) from log")
+      .map(r=> (r.getLong(0), r.getLong(1), r.getDouble(2), r.getLong(3)))
+      .first()
+  }
 
 }
