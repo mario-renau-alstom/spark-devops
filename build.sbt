@@ -6,9 +6,9 @@ version := "1.0"
 
 scalaVersion := "2.11.5"
 
-libraryDependencies += "org.apache.spark" %% "spark-core" % "1.6.1" % "provided"
+libraryDependencies += "org.apache.spark" %% "spark-core" % "2.2.1" % "provided"
 
-libraryDependencies += "org.apache.spark" %% "spark-sql" % "1.6.1" % "provided"
+libraryDependencies += "org.apache.spark" %% "spark-sql" % "2.2.1" % "provided"
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.6" % "test"
 

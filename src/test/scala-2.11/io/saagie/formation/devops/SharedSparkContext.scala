@@ -12,7 +12,7 @@ trait SharedSparkContext extends BeforeAndAfterAll { self: Suite =>
   def rdd: RDD[String] = _rdd
 
   override def beforeAll() {
-    val conf = new SparkConf().setAppName(getClass().getName()).setMaster("local[2]")
+    val conf = new SparkConf().setAppName(getClass.getName).setMaster("local[2]")
     _sc = new SparkContext(conf)
     _rdd = sc.textFile(file(), 1)
     super.beforeAll()
